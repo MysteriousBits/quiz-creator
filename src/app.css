@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+@theme {
+    --font-oswald: "Oswald", sans-serif;
+    --font-overpass: "Overpass", sans-serif;
+}
+
+@layer base {
+    body {
+        background: linear-gradient(110deg, #99e5a6, #8cded3, #5f7c93);
+        font-family: sans-serif;
+        font-family: "Roboto", sans-serif;
+    }
+
+    h1, h2 {
+        @apply font-overpass text-center font-bold;
+    }
+
+    input[type="text"], input[type="number"] {
+        @apply border-b-2 border-violet-300 focus:outline-none w-full placeholder:text-gray-300
+            focus:border-violet-600;
+    }
+
+    textarea {
+        @apply outline-2 outline-violet-300 rounded p-2 w-full placeholder:text-gray-300
+            resize-none focus:outline-violet-600 break-all;
+    }
+}
+
+@layer components {
+    .btn-base {
+        @apply bg-blue-400 text-white rounded px-4 py-2
+        hover:bg-blue-300 text-lg md:text-xl drop-shadow-xl font-oswald;
+    }
+
+    .backbox {
+        @apply flex flex-col items-center space-y-6 px-4 py-6 mx-auto
+        bg-slate-100 rounded-2xl outline-violet-400 outline-2 drop-shadow-xl text-center;
+    }
+
+    .question {
+        @apply flex flex-col w-3/4 min-w-2xs md:w-2/3 px-6;
+    }
+
+    .grid-fields {
+        @apply grid grid-cols-[1fr_2fr] text-left w-2/3 min-w-3xs px-3 gap-2;
+    }
+}
