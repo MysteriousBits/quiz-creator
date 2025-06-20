@@ -42,7 +42,7 @@ export async function quizExists(id) {
 
 export async function startQuiz(id, userId, requiredFields) {
   await storage.write(storage.submissionPath(id, userId), {
-    requiredFields, time: Date.now() + 1000
+    requiredFields, time: Date.now() + 5000
   });
 }
 
@@ -65,7 +65,7 @@ export async function evaluateSubmission(id, userId, ans) {
   const submission = await storage.read(path);
   if (submission?.score !== undefined) return { error: "Already submitted" };
 
-  if (Date.now() - submission.time > quiz.infos.time * 60000 + 10000) return { error: "Time's up!" }
+  if (Date.now() - submission.time > quiz.infos.time * 60000 + 15000) return { error: "Time's up!" }
   if (quiz.questions.length !== ans.length) return { error: "Invalid submission" };
 
   let score = 0;
