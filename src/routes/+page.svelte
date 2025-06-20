@@ -1,5 +1,4 @@
 <script>
-  import { redirect } from "@sveltejs/kit";
   import { goto } from '$app/navigation';
 </script>
 

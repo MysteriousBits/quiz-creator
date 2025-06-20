@@ -1,7 +1,7 @@
 <script>
   import { toast } from "$lib/stores/store.svelte";
 
-  let colors = { "success": "bg-green-400", "error": "bg-red-400"};
+  let colors = { "success": "bg-green-400", "error": "bg-red-400", "loading": "bg-amber-500"};
 </script>
 
 {#if toast.message !== ""}

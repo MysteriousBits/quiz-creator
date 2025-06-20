@@ -7,7 +7,7 @@ function setToast(msg, type) {
 
   toast.message = msg;
   toast.type = type;
-  timeout = setTimeout(() => toast.message = "", 2000);
+  timeout = setTimeout(() => toast.message = "", 2500);
 }
 
 export function success(msg) {
@@ -16,4 +16,18 @@ export function success(msg) {
 
 export function err(msg) {
   setToast('🚫 ' + msg, "error");
+}
+
+export function startLoading() {
+  if (toast.message !== "") return;
+  
+  toast.message = "Loading...";
+  toast.type = "loading";
+}
+
+export function stopLoading() {
+  if (toast.type === "loading") {
+    toast.message = "";
+    toast.type = "";
+  }
 }

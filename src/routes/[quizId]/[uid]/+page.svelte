@@ -3,7 +3,7 @@
   import { page } from "$app/state";
   import QuestionAns from "$lib/components/QuestionAns.svelte";
   import Timer from "$lib/components/Timer.svelte";
-  import { err, success } from "$lib/stores/store.svelte.js";
+  import { err, startLoading, success } from "$lib/stores/store.svelte.js";
 
   const { data } = $props();
   const { title, desc, questions, rem, error } = data;
@@ -19,6 +19,7 @@
   });
 
   async function submitQuiz() {
+    startLoading();
     const response = await fetch(page.url.pathname + '/submit', {
       method: 'POST',
       body: JSON.stringify({ ans }),

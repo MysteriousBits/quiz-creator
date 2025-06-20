@@ -5,7 +5,7 @@
   import { tick } from 'svelte';
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
-    import { err, success } from "$lib/stores/store.svelte.js";
+  import { err, startLoading, success } from "$lib/stores/store.svelte.js";
 
   let { data } = $props();
   let { uid, infos, requiredFields, questions } = $state(data);
@@ -30,6 +30,7 @@
     const reply = confirm("Do you want to delete this quiz parmanently?");
 
     if (reply) {
+      startLoading();
       const response = await fetch(page.url.pathname + '/delete');
 
       const msg = await response.json();
@@ -42,6 +43,7 @@
   }
 
   async function saveQuiz() {
+    startLoading();
     const response = await fetch(page.url.pathname + '/save', {
       method: 'POST',
       body: JSON.stringify({ infos, requiredFields, questions }),

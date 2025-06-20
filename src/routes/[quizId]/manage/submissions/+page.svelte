@@ -1,4 +1,6 @@
 <script>
+    import { startLoading, stopLoading } from '$lib/stores/store.svelte.js';
+
   const { data } = $props();
   let { requiredFields, submissions } = data;
 
@@ -7,6 +9,8 @@
   }
 
   function exportCSV() {
+    startLoading();
+    
     const headers = csvRow([...requiredFields, 'Score']);
     const rows = submissions.map(submission => csvRow([...submission.requiredFields, String(submission.score)]));
     const blob = new Blob([[headers, ...rows].join('\n')], { type: 'text/csv' });
@@ -16,6 +20,7 @@
     link.download = "submissions.csv";
     link.click();
     URL.revokeObjectURL(link.href);
+    stopLoading();
   }
 </script>
 
