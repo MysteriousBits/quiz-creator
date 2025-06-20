@@ -6,7 +6,7 @@ export function init() {
 }
 
 export async function nxtId() {
-  const { nxtId } = await storage.read(storage.idfile);
+  const { nxtId } = await storage.read(storage.idfile, false);
   await storage.write(storage.idfile, { nxtId: nxtId + 1 });
   return nxtId;
 }
@@ -23,17 +23,18 @@ export async function createQuiz(userId, id, uid, pass) {
    await storage.makedir(storage.submissionDir(id));
 }
 
-export async function saveQuiz(id, quiz) {
-  let data = await loadQuiz(id);
-  data = { ...data, ...quiz };
+export async function saveQuiz(id, data, quiz = undefined) {
+  if (!quiz) data = await loadQuiz(id);
+  if (!quiz) return false;
 
-  await storage.write(storage.quizPath(id), data);
+  await storage.write(storage.quizPath(id), { ...quiz, ...data });
   return true;
 }
 
-export async function loadQuiz(id) {
+export async function loadQuiz(id, cache = true) {
   if (!(await quizExists(id))) return null;
-  return await storage.read(storage.quizPath(id));
+
+  return await storage.read(storage.quizPath(id), cache);
 }
 
 export async function quizExists(id) {

@@ -24,10 +24,10 @@ export const actions = {
           cookies.set('userid', userId, { path: '/' });
         }
 
-        data.curUser = userId;
-        await saveQuiz(id, data);
+        const res = await saveQuiz(id, { curUser: userId }, data);
 
-        return redirect(303, `/${id}/manage`);
+        if (res) return redirect(303, `/${id}/manage`);
+        else return fail(500, { error: "Couldnt load quiz!" });
       }
       else return fail(422, { error: "Password not correct" });
     }

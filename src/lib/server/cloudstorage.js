@@ -14,14 +14,16 @@ export async function initStorage() {
   
   bucket = env.SUPABASE_BUCKET;
 
-  // let exists = await checkPath(idfile);
-  // if (!exists)
-  //   write(idfile, { nxtId: 100001 });
+  let exists = await checkPath(idfile);
+  if (!exists)
+    write(idfile, { nxtId: 100001 });
 
-  // console.log("Initiated");
+  console.log("Initiated");
 }
 
-export async function read(path) {
+export async function read(path, cache = true) {
+  if (!cache) path += `?t=${Date.now()}`;
+
   const { data, error } = await supabase
   .storage
   .from(bucket)

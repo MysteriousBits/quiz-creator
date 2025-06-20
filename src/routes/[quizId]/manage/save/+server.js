@@ -25,7 +25,8 @@ export async function POST({ request, params, cookies }) {
   if (requiredFields[0] === "") return json({ error: "Required fields must have valid names" }, { status: 422 });
 
   // Save quiz as json to storage
-  await saveQuiz(params.quizId, { infos, requiredFields, questions });
+  const res = await saveQuiz(params.quizId, { infos, requiredFields, questions }, quiz);
 
+  if (!res) return json({ error: "Couldn't save!" }, { status: 500 });
   return json({ success: "Saved" }, { status: 200});
 }
