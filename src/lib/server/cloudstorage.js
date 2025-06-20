@@ -14,11 +14,11 @@ export async function initStorage() {
   
   bucket = env.SUPABASE_BUCKET;
 
-  let exists = await checkPath(idfile);
-  if (!exists)
-    write(idfile, { nxtId: 100001 });
+  // let exists = await checkPath(idfile);
+  // if (!exists)
+  //   write(idfile, { nxtId: 100001 });
 
-  console.log("Initiated");
+  // console.log("Initiated");
 }
 
 export async function read(path) {
