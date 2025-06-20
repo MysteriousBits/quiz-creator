@@ -10,7 +10,7 @@ export let idfile;
 
 export async function initStorage() {
   storage = env.STORAGE;
-  quizdir = join(storage,'quizes');
+  quizdir = join(storage, 'quizzes');
   submissiondir = join(storage, 'submissions');
   idfile = join(storage, 'id.json');
 
@@ -41,7 +41,7 @@ export async function makedir(dir) {
 }
 
 export function quizPath(id) {
-  return join(storage, 'quizes', id + ".json");
+  return join(quizdir, id + ".json");
 }
 
 export function submissionPath(id, userId) {
