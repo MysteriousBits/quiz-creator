@@ -1,5 +1,6 @@
 import { success } from '$lib/stores/store.svelte';
 import * as storage from './cloudstorage';
+import { isCached, updateSaved } from './store';
 
 export function init() {
   storage.initStorage();
@@ -28,12 +29,14 @@ export async function saveQuiz(id, data, quiz = undefined) {
   if (!quiz) return false;
 
   await storage.write(storage.quizPath(id), { ...quiz, ...data });
+  updateSaved(id);
   return true;
 }
 
 export async function loadQuiz(id, cache = true) {
   if (!(await quizExists(id))) return null;
 
+  if (cache) cache = !isCached(id);
   return await storage.read(storage.quizPath(id), cache);
 }
 
