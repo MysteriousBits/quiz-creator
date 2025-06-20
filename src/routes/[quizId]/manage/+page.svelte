@@ -30,13 +30,13 @@
     const reply = confirm("Do you want to delete this quiz parmanently?");
 
     if (reply) {
+      startLoading();
       const response = await fetch(page.url.pathname + '/delete');
 
       const msg = await response.json();
       if (msg.error) err(msg.error);
       else {
         success(msg.success);
-        startLoading();
         goto('/');
       }
     }

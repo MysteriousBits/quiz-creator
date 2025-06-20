@@ -1,9 +1,13 @@
 <script>
 	import '../app.css';
   import Toast from '$lib/components/Toast.svelte';
-  import { stopLoading } from '$lib/stores/store.svelte';
+  import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { startLoading, stopLoading } from '$lib/stores/store.svelte';
 
   let { children } = $props();
+
+  beforeNavigate(startLoading);
+  afterNavigate(stopLoading);
 </script>
 
 <div class="container flex flex-col mx-auto min-h-screen bg-none p-6 space-y-8">

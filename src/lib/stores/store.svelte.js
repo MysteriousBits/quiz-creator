@@ -19,9 +19,15 @@ export function err(msg) {
 }
 
 export function startLoading() {
-  setToast("Loading...", "loading");
+  if (toast.message !== "") return;
+  
+  toast.message = "Loading...";
+  toast.type = "loading";
 }
 
 export function stopLoading() {
-  if (toast.type === "loading") setToast("", "");
+  if (toast.type === "loading") {
+    toast.message = "";
+    toast.type = "";
+  }
 }
